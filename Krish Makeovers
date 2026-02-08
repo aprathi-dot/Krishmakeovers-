@@ -1,0 +1,442 @@
+// =============================== // KRISH MAKEOVERS — FULL WEBSITE // READY FOR GITHUB + VERCEL DEPLOY // ===============================
+
+// ---------- package.json ---------- { "name": "krishmakeovers", "private": true, "version": "1.0.0", "type": "module", "scripts": { "dev": "vite", "build": "vite build", "preview": "vite preview" }, "dependencies": { "framer-motion": "^11.0.0", "lucide-react": "^0.344.0", "react": "^18.2.0", "react-dom": "^18.2.0" }, "devDependencies": { "@vitejs/plugin-react": "^4.2.0", "vite": "^5.0.0" } }
+
+// ---------- vite.config.js ---------- import { defineConfig } from "vite"; import react from "@vitejs/plugin-react";
+
+export default defineConfig({ plugins: [react()], });
+
+// ---------- index.html ----------
+
+<!DOCTYPE html><html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Krish Makeovers</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>// ---------- src/main.jsx ---------- import React from "react"; import ReactDOM from "react-dom/client"; import App from "./App"; import "./index.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render( <React.StrictMode> <App /> </React.StrictMode> );
+
+// ---------- src/index.css ---------- @tailwind base; @tailwind components; @tailwind utilities;
+
+body { margin: 0; font-family: system-ui, sans-serif; }
+
+// ---------- tailwind.config.js ---------- /** @type {import('tailwindcss').Config} / export default { content: ["./index.html", "./src/**/.{js,jsx}"], theme: { extend: {}, }, plugins: [], };
+
+// ---------- postcss.config.js ---------- export default { plugins: { tailwindcss: {}, autoprefixer: {}, }, };
+
+// ---------- src/App.jsx ---------- import React, { useState, useEffect } from "react"; import { motion } from "framer-motion"; import { Instagram, Phone, Mail, MapPin, Calendar, Bell, MessageCircle, CreditCard, User, } from "lucide-react";
+
+export default function App() { const [bookings, setBookings] = useState([]); const [form, setForm] = useState({ name: "", phone: "", date: "", service: "", location: "", message: "", });
+
+useEffect(() => { const script = document.createElement("script"); script.src = "https://www.instagram.com/embed.js"; script.async = true; document.body.appendChild(script); }, []);
+
+const handleSubmit = (e) => { e.preventDefault(); if (!form.name || !form.phone || !form.date || !form.location) { alert("Fill name, phone, date, and location properly."); return; }
+
+const newBooking = { ...form, id: Date.now() };
+setBookings([...bookings, newBooking]);
+
+const whatsappMsg = `Hi Krish Makeovers,%0A%0ABooking Request:%0AName: ${form.name}%0APhone: ${form.phone}%0ADate: ${form.date}%0AService: ${form.service}%0ALocation: ${form.location}%0AMessage: ${form.message}`;
+window.open(`https://wa.me/918838145149?text=${whatsappMsg}`, "_blank");
+
+setForm({ name: "", phone: "", date: "", service: "", location: "", message: "" });
+
+};
+
+return ( <div className="min-h-screen bg-white text-gray-900 font-sans"> {/* HEADER */} <header className="bg-purple-900 text-white sticky top-0 z-50 shadow-lg"> <div className="max-w-7xl mx-auto flex justify-between items-center p-4"> <h1 className="text-2xl font-bold tracking-wider">Krish Makeovers</h1> <nav className="hidden md:flex gap-6 text-sm font-medium"> <a href="#home" className="hover:text-purple-200">Home</a> <a href="#about" className="hover:text-purple-200">About</a> <a href="#services" className="hover:text-purple-200">Services</a> <a href="#gallery" className="hover:text-purple-200">Gallery</a> <a href="#booking" className="hover:text-purple-200">Booking</a> <a href="#calendar" className="hover:text-purple-200">Calendar</a> <a href="#contact" className="hover:text-purple-200">Contact</a> </nav> </div> </header>
+
+{/* HERO */}
+  <section
+    id="home"
+    className="bg-gradient-to-r from-purple-950 via-purple-900 to-purple-700 text-white py-24 px-6"
+  >
+    <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <motion.div
+        initial={{ opacity: 0, x: -60 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h2 className="text-5xl font-extrabold leading-tight mb-6">
+          Luxury Makeup.
+          <br />
+          Royal Finish.
+        </h2>
+        <p className="text-lg text-purple-100 mb-8 max-w-lg">
+          Bridal • Party • Engagement • Editorial • Events
+          <br />
+          One brand. One standard. Perfection.
+        </p>
+        <div className="flex gap-4 flex-wrap">
+          <a
+            href="#booking"
+            className="bg-white text-purple-900 px-7 py-3 rounded-xl font-semibold shadow hover:bg-purple-100"
+          >
+            Book Appointment
+          </a>
+          <a
+            href="https://instagram.com/krish_makeovers"
+            target="_blank"
+            rel="noreferrer"
+            className="border border-white px-7 py-3 rounded-xl font-semibold hover:bg-white hover:text-purple-900"
+          >
+            View Instagram
+          </a>
+          <a
+            href="https://wa.me/918838145149"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 bg-green-500 px-6 py-3 rounded-xl font-semibold shadow hover:bg-green-600"
+          >
+            <MessageCircle size={18} /> WhatsApp Now
+          </a>
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
+        className="bg-white/10 rounded-3xl p-6 shadow-2xl"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9"
+          alt="Makeup Artist"
+          className="rounded-2xl object-cover w-full h-96"
+        />
+      </motion.div>
+    </div>
+  </section>
+
+  {/* ABOUT */}
+  <section id="about" className="py-20 px-6 bg-white">
+    <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <img
+        src="https://images.unsplash.com/photo-1500839941678-aae14dbfae6c"
+        alt="Makeup Studio"
+        className="rounded-3xl shadow-xl"
+      />
+      <div>
+        <h3 className="text-4xl font-bold text-purple-900 mb-4">About Krish Makeovers</h3>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Krish Makeovers is a premium makeup artistry brand focused on bridal, party, photoshoot,
+          engagement, and celebrity-style event looks. We don’t chase trends — we perfect them.
+        </p>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          We use international-grade products, maintain strict hygiene standards, and deliver
+          camera-perfect finishes that last all day — sweat, tears, lights, and chaos included.
+        </p>
+        <p className="text-gray-700 leading-relaxed">
+          This is not budget makeup. This is professional artistry.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* SERVICES */}
+  <section id="services" className="py-20 px-6 bg-purple-50">
+    <div className="max-w-7xl mx-auto">
+      <h3 className="text-4xl font-bold text-center text-purple-900 mb-12">Services</h3>
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10">
+        {["Bridal Makeup", "Party Makeup", "Engagement Makeup", "Reception Makeup", "Photoshoot Makeup", "Hair Styling"].map(
+          (service, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.05 }}
+              className="bg-white rounded-3xl shadow-lg p-7 border-t-4 border-purple-800"
+            >
+              <h4 className="text-xl font-semibold text-purple-900 mb-2">{service}</h4>
+              <p className="text-gray-600 text-sm">
+                HD finish • Waterproof • Long-lasting • Professional products
+              </p>
+            </motion.div>
+          )
+        )}
+      </div>
+    </div>
+  </section>
+
+  {/* INSTAGRAM FEED */}
+  <section id="gallery" className="py-20 px-6 bg-white">
+    <div className="max-w-7xl mx-auto">
+      <h3 className="text-4xl font-bold text-center text-purple-900 mb-6">Instagram Gallery</h3>
+      <p className="text-center text-gray-600 mb-10">
+        Live posts and reels — click any image to view full details on Instagram.
+      </p>
+
+      <div className="grid md:grid-cols-3 gap-6">
+        <blockquote
+          className="instagram-media"
+          data-instgrm-permalink="https://www.instagram.com/p/POST_ID_1/"
+          data-instgrm-version="14"
+        ></blockquote>
+        <blockquote
+          className="instagram-media"
+          data-instgrm-permalink="https://www.instagram.com/p/POST_ID_2/"
+          data-instgrm-version="14"
+        ></blockquote>
+        <blockquote
+          className="instagram-media"
+          data-instgrm-permalink="https://www.instagram.com/reel/REEL_ID_1/"
+          data-instgrm-version="14"
+        ></blockquote>
+      </div>
+
+      <div className="text-center mt-10">
+        <a
+          href="https://instagram.com/krish_makeovers"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 bg-purple-900 text-white px-7 py-3 rounded-xl shadow hover:bg-purple-950"
+        >
+          <Instagram size={18} /> View Full Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* BOOKING SYSTEM */}
+  <section id="booking" className="py-24 px-6 bg-purple-900 text-white">
+    <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-14">
+      <div>
+        <h3 className="text-4xl font-bold mb-6">Instant Booking</h3>
+        <p className="text-purple-100 mb-6 max-w-md">
+          Enter your details. It sends directly to WhatsApp + stores in calendar dashboard below.
+        </p>
+
+        <div className="space-y-4 text-sm">
+          <p className="flex items-center gap-3"><Phone size={16} /> +91 8838145149</p>
+          <p className="flex items-center gap-3"><Mail size={16} /> krishmakeovers@gmail.com</p>
+          <p className="flex items-center gap-3"><MapPin size={16} /> Chennai, India</p>
+        </div>
+      </div>
+
+      <motion.form
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        onSubmit={handleSubmit}
+        className="bg-white text-gray-900 rounded-3xl shadow-2xl p-8"
+      >
+        <h4 className="text-2xl font-semibold text-purple-900 mb-6">Book Appointment</h4>
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <User size={18} />
+            <input
+              type="text"
+              placeholder="Customer Name"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+            />
+          </div>
+          <div className="flex items-center gap-3">
+            <Phone size={18} />
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+            />
+          </div>
+          <div className="flex items-center gap-3">
+            <Calendar size={18} />
+            <input
+              type="date"
+              value={form.date}
+              onChange={(e) => setForm({ ...form, date: e.target.value })}
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+            />
+          </div>
+          <select
+            value={form.service}
+            onChange={(e) => setForm({ ...form, service: e.target.value })}
+            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+          >
+            <option value="">Select Service</option>
+            <option>Bridal Makeup</option>
+            <option>Party Makeup</option>
+            <option>Engagement Makeup</option>
+            <option>Reception Makeup</option>
+            <option>Photoshoot Makeup</option>
+            <option>Hair Styling</option>
+          </select>
+          <div className="flex items-center gap-3">
+            <MapPin size={18} />
+            <input
+              type="text"
+              placeholder="Event Location / Venue"
+              value={form.location}
+              onChange={(e) => setForm({ ...form, location: e.target.value })}
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+            />
+          </div>
+          <textarea
+            rows="3"
+            placeholder="Additional Notes"
+            value={form.message}
+            onChange={(e) => setForm({ ...form, message: e.target.value })}
+            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+          ></textarea>
+          <button
+            type="submit"
+            className="w-full bg-purple-900 text-white py-3 rounded-xl font-semibold hover:bg-purple-950"
+          >
+            Confirm Booking
+          </button>
+        </div>
+      </motion.form>
+    </div>
+  </section>
+
+  {/* PAYMENT */}
+  <section className="py-20 px-6 bg-purple-50">
+    <div className="max-w-5xl mx-auto text-center">
+      <h3 className="text-4xl font-bold text-purple-900 mb-4">Advance Payment</h3>
+      <p className="text-gray-600 mb-8 max-w-xl mx-auto">
+        Secure your slot by paying advance.
+      </p>
+
+      <div className="flex justify-center gap-6 flex-wrap">
+        <button className="flex items-center gap-2 bg-purple-900 text-white px-8 py-3 rounded-xl shadow hover:bg-purple-950">
+          <CreditCard size={18} /> Pay via UPI / Card
+        </button>
+        <a
+          href="https://wa.me/918838145149"
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-2 bg-green-500 px-8 py-3 rounded-xl font-semibold shadow hover:bg-green-600"
+        >
+          <MessageCircle size={18} /> Confirm on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* CALENDAR */}
+  <section id="calendar" className="py-24 px-6 bg-white">
+    <div className="max-w-7xl mx-auto">
+      <h3 className="text-4xl font-bold text-center text-purple-900 mb-4">Booking Calendar</h3>
+      <p className="text-center text-gray-600 mb-10">
+        All confirmed bookings appear here with customer name and event place.
+      </p>
+
+      <div className="bg-purple-50 rounded-3xl shadow-xl p-8">
+        {bookings.length === 0 ? (
+          <p className="text-center text-gray-500">No bookings yet.</p>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {bookings.map((b) => (
+              <motion.div
+                key={b.id}
+                whileHover={{ scale: 1.03 }}
+                className="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-900"
+              >
+                <h4 className="text-lg font-semibold text-purple-900 mb-2 flex items-center gap-2">
+                  <User size={16} /> {b.name}
+                </h4>
+                <p className="text-sm text-gray-700 mb-1 flex items-center gap-2">
+                  <Calendar size={14} /> {b.date}
+                </p>
+                <p className="text-sm text-gray-700 mb-1 flex items-center gap-2">
+                  <MapPin size={14} /> {b.location}
+                </p>
+                <p className="text-sm text-gray-600 mb-3">Service: {b.service || "Not specified"}</p>
+
+                <div className="flex gap-3">
+                  <button className="flex items-center gap-2 bg-purple-900 text-white px-4 py-2 rounded-lg text-xs hover:bg-purple-950">
+                    <Bell size={14} /> Set Reminder
+                  </button>
+                  <a
+                    href={`https://wa.me/91${b.phone}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 bg-green-500 px-4 py-2 rounded-lg text-xs font-semibold hover:bg-green-600"
+                  >
+                    <MessageCircle size={14} /> Message
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  {/* CONTACT */}
+  <section id="contact" className="py-24 px-6 bg-purple-950 text-white">
+    <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
+      <div>
+        <h3 className="text-4xl font-bold mb-6">Contact Krish Makeovers</h3>
+        <p className="text-purple-200 mb-6 max-w-md">
+          Book instantly, view portfolio, message directly — everything in one place.
+        </p>
+
+        <div className="space-y-4 text-sm">
+          <p className="flex items-center gap-3"><Phone size={16} /> +91 8838145149</p>
+          <p className="flex items-center gap-3"><Mail size={16} /> krishmakeovers@gmail.com</p>
+          <p className="flex items-center gap-3"><MapPin size={16} /> Chennai, India</p>
+        </div>
+
+        <div className="mt-6 flex gap-4 flex-wrap">
+          <a
+            href="https://instagram.com/krish_makeovers"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-purple-950"
+          >
+            <Instagram size={18} /> Instagram
+          </a>
+          <a
+            href="https://wa.me/918838145149"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 bg-green-500 px-6 py-3 rounded-xl font-semibold hover:bg-green-600"
+          >
+            <MessageCircle size={18} /> WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="bg-white text-gray-900 rounded-3xl shadow-2xl p-10"
+      >
+        <h4 className="text-2xl font-semibold text-purple-900 mb-6">Business Hours</h4>
+        <ul className="space-y-3 text-sm">
+          <li className="flex justify-between"><span>Monday – Saturday</span><span>9:00 AM – 9:00 PM</span></li>
+          <li className="flex justify-between"><span>Sunday</span><span>By Appointment Only</span></li>
+        </ul>
+
+        <div className="mt-8 p-5 bg-purple-50 rounded-xl text-sm text-gray-700">
+          ⚠ Serious bookings only. Advance payment required to lock slot.
+        </div>
+      </motion.div>
+    </div>
+  </section>
+
+  {/* FOOTER */}
+  <footer className="bg-purple-900 text-purple-200 text-sm py-6">
+    <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-6">
+      <p>© {new Date().getFullYear()} Krish Makeovers. All rights reserved.</p>
+      <a
+        href="https://instagram.com/krish_makeovers"
+        target="_blank"
+        rel="noreferrer"
+        className="flex items-center gap-2 hover:text-white"
+      >
+        <Instagram size={16} /> Follow on Instagram
+      </a>
+    </div>
+  </footer>
+</div>
+
+); }
